@@ -8,6 +8,7 @@ public class Game2048 implements Game {
     private GameHelper helper = new GameHelper();
     private Board board;
     private Random random = new Random();
+    
     public Game2048(Board board) {
         this.board = board;
     }
