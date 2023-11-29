@@ -1,6 +1,5 @@
 package board;
 
-
 import key.Key;
 
 import java.util.HashMap;
@@ -9,9 +8,7 @@ import java.util.Map;
 
 public abstract class Board {
     private int weigh;
-
     private int height;
-
     private Map<Key, Integer> board = new HashMap<>();
 
     public Board(int weigh, int height) {
@@ -36,6 +33,5 @@ public abstract class Board {
     public abstract boolean hasValue(Integer value);
 
     public abstract List<Integer> getValues(List<Key> keys);
-
 
 }

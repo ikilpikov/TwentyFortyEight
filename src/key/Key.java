@@ -2,7 +2,6 @@ package key;
 
 public class Key {
     private int i;
-
     private int j;
 
     public int getI() {

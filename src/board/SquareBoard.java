@@ -1,16 +1,13 @@
 package board;
 
 import key.Key;
-
 import java.util.List;
 
 public class SquareBoard extends Board {
     private int size;
-
     public SquareBoard(int size) {
         super(size, size);
     }
-
 
     @Override
     public void fillBoard(List<Integer> list) {
