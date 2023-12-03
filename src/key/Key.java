@@ -1,5 +1,7 @@
 package key;
 
+import java.util.Objects;
+
 public class Key {
     private int i;
     private int j;
@@ -24,4 +26,5 @@ public class Key {
         this.i = i;
         this.j = j;
     }
+
 }
