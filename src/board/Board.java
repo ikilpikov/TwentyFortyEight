@@ -7,13 +7,21 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Board {
-    private int weigh;
-    private int height;
-    private Map<Key, Integer> board = new HashMap<>();
+    private final int width;
+    private final int height;
+    protected Map<Key, Integer> board = new HashMap<>();
 
     public Board(int weigh, int height) {
-        this.weigh = weigh;
+        this.width = weigh;
         this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public abstract void fillBoard(List<Integer> list);

@@ -19,4 +19,9 @@ public class Key {
     public void setJ(int j) {
         this.j = j;
     }
+
+    public Key(int i, int j) {
+        this.i = i;
+        this.j = j;
+    }
 }
