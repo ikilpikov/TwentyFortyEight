@@ -1,22 +1,25 @@
 package test;
 
 import board.Board;
+import direction.Direction;
 import game.Game;
 import game.Game2048;
 import board.SquareBoard;
-import game.GameHelper;
 
 import static java.util.Arrays.asList;
 
 public class TestClass {
     public static void main(String[] args) {
         Board board = new SquareBoard(3);
+        board.fillBoard(asList(2, null, 2,
+                2, null, null,
+                2, 4, 4));
+        Game game = new Game2048(board);
 
-        GameHelper gameHelper = new GameHelper();
-        System.out.println(gameHelper.moveAndMergeEqual(asList(4, null, null, 4, 5, 6,  2, 2)));
+        System.out.println(game.getGameBoard());
 
-        Game game2048 = new Game2048(board);
-
+        game.move(Direction.RIGHT);
+        System.out.println(game.getGameBoard());
     }
 
 }

@@ -1,15 +1,14 @@
 package board;
 
 import key.Key;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public abstract class Board {
     private final int width;
     private final int height;
-    protected Map<Key, Integer> board = new HashMap<>();
+    protected Map<Key, Integer> board = new LinkedHashMap<>();
 
     public Board(int weigh, int height) {
         this.width = weigh;
@@ -37,6 +36,10 @@ public abstract class Board {
     public abstract List<Key> getColumn(int j);
 
     public abstract List<Key> getRow(int i);
+
+    public abstract List<Integer> getColumnValues(int j);
+
+    public abstract List<Integer> getRowValues(int i);
 
     public abstract boolean hasValue(Integer value);
 

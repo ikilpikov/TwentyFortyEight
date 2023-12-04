@@ -38,6 +38,8 @@ public class BoardTest {
         board.fillBoard(asList(5, 6, 7, 8));
         if (!board.availableSpace().isEmpty())
             throw new RuntimeException("fillBoard not correct work =(");
+
+        System.out.println("Tests passed successfully =)");
     }
 
     public static void assertEquals(List<?> list1, List<?> list2) {

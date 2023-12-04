@@ -1,6 +1,7 @@
 package board;
 
 import key.Key;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -13,7 +14,6 @@ public class SquareBoard extends Board {
     @Override
     public void fillBoard(List<Integer> list) {
         ListIterator<Integer> iterator = list.listIterator();
-        board.clear();
 
         for (int i = 0; i < getWidth(); i++) {
             for (int j = 0; j < getHeight(); j++) {
@@ -87,6 +87,16 @@ public class SquareBoard extends Board {
     }
 
     @Override
+    public List<Integer> getColumnValues(int j) {
+        return this.getValues(this.getColumn(j));
+    }
+
+    @Override
+    public List<Integer> getRowValues(int i) {
+        return this.getValues(this.getRow(i));
+    }
+
+    @Override
     public boolean hasValue(Integer value) {
         return this.board.containsValue(value);
     }
@@ -100,5 +110,24 @@ public class SquareBoard extends Board {
         }
 
         return values;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < this.getWidth(); i++) {
+            for (int j = 0; j < this.getHeight(); j++) {
+                if (this.getValue(this.getKey(i, j)) == null) {
+                    sb.append("* ");
+                } else {
+                    sb.append(this.getValue(this.getKey(i, j)) + " ");
+                }
+            }
+
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 }
