@@ -3,6 +3,7 @@ package game;
 import board.Board;
 import direction.Direction;
 import key.Key;
+
 import java.util.*;
 
 import static java.util.Arrays.asList;
@@ -14,8 +15,8 @@ public class Game2048 implements Game {
 
     public Game2048(Board board) {
         this.board = board;
-        this.helper = new GameHelper();
-        this.random = new Random();
+        helper = new GameHelper();
+        random = new Random();
     }
 
     @Override
@@ -27,7 +28,7 @@ public class Game2048 implements Game {
 
     @Override
     public boolean canMove() {
-        return !this.board.availableSpace().isEmpty();
+        return !board.availableSpace().isEmpty();
     }
 
     @Override
@@ -42,7 +43,7 @@ public class Game2048 implements Game {
 
     @Override
     public void addItem() {
-        List<Key> emptyFields = this.board.availableSpace();
+        List<Key> emptyFields = board.availableSpace();
         Key randomEmptyField = emptyFields
                 .get(random.nextInt(emptyFields.size() - 1));
 
@@ -56,75 +57,75 @@ public class Game2048 implements Game {
 
     @Override
     public boolean hasWin() {
-        return this.board.hasValue(2048);
+        return board.hasValue(2048);
     }
 
     private void moveLeft() {
         List<Integer> updatedBoardValues = new ArrayList<>();
 
-        for (int i = 0; i < this.board.getHeight(); i++) {
-            List<Integer> mergedRows = this.helper
-                    .moveAndMergeEqual(this.board.getRowValues(i));
+        for (int i = 0; i < board.getHeight(); i++) {
+            List<Integer> mergedRows = helper
+                    .moveAndMergeEqual(board.getRowValues(i));
             updatedBoardValues.addAll(mergedRows);
         }
 
-        this.board.fillBoard(updatedBoardValues);
+        board.fillBoard(updatedBoardValues);
     }
 
     private void moveRight() {
         List<Integer> updatedBoardValues = new ArrayList<>();
 
-        for (int i = 0; i < this.board.getHeight(); i++) {
-            List<Integer> mergedRows = this.helper
-                    .moveAndMergeEqual(this.board.getRowValues(i));
-            mergedRows = this.reverseNullsOnly(mergedRows);
+        for (int i = 0; i < board.getHeight(); i++) {
+            List<Integer> mergedRows = helper
+                    .moveAndMergeEqual(board.getRowValues(i));
+            mergedRows = reverseNullsOnly(mergedRows);
 
             updatedBoardValues.addAll(mergedRows);
         }
 
-        this.board.fillBoard(updatedBoardValues);
+        board.fillBoard(updatedBoardValues);
     }
 
     private void moveDown() {
         List<Integer> updatedBoardValues = new ArrayList<>();
 
-        for (int i = 0; i < this.board.getWidth(); i++) {
-            List<Integer> mergedColumns = this.helper
-                    .moveAndMergeEqual(this.board.getColumnValues(i));
-            mergedColumns = this.reverseNullsOnly(mergedColumns);
+        for (int i = 0; i < board.getWidth(); i++) {
+            List<Integer> mergedColumns = helper
+                    .moveAndMergeEqual(board.getColumnValues(i));
+            mergedColumns = reverseNullsOnly(mergedColumns);
 
             updatedBoardValues.addAll(mergedColumns);
         }
 
         List<Integer> transposedUpdatedValues =
-                this.transportBoardValues(updatedBoardValues);
+                transportBoardValues(updatedBoardValues);
 
-        this.board.fillBoard(transposedUpdatedValues);
+        board.fillBoard(transposedUpdatedValues);
     }
 
     private void moveUp() {
         List<Integer> updatedBoardValues = new ArrayList<>();
 
-        for (int i = 0; i < this.board.getWidth(); i++) {
-            List<Integer> mergedColumns = this.helper
-                    .moveAndMergeEqual(this.board.getColumnValues(i));
+        for (int i = 0; i < board.getWidth(); i++) {
+            List<Integer> mergedColumns = helper
+                    .moveAndMergeEqual(board.getColumnValues(i));
 
             updatedBoardValues.addAll(mergedColumns);
         }
 
         List<Integer> transposedUpdatedValues =
-                this.transportBoardValues(updatedBoardValues);
+                transportBoardValues(updatedBoardValues);
 
-        this.board.fillBoard(transposedUpdatedValues);
+        board.fillBoard(transposedUpdatedValues);
     }
 
     private List<Integer> transportBoardValues(List<Integer> list) {
         List<Integer> result = new ArrayList<>();
 
-        for (int i = 0; i < this.board.getHeight(); i++) {
-            for (int j = 0; j < this.board.getWidth(); j++) {
+        for (int i = 0; i < board.getHeight(); i++) {
+            for (int j = 0; j < board.getWidth(); j++) {
                 result.add(list
-                        .get(j * this.board.getHeight() + i));
+                        .get(j * board.getHeight() + i));
             }
         }
 

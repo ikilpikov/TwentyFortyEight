@@ -17,7 +17,7 @@ public class SquareBoard extends Board {
         for (int i = 0; i < getWidth(); i++) {
             for (int j = 0; j < getHeight(); j++) {
                 if (iterator.hasNext()) {
-                    this.addItem(new Key(i, j), iterator.next());
+                    addItem(new Key(i, j), iterator.next());
                 } else {
                     return;
                 }
@@ -45,7 +45,7 @@ public class SquareBoard extends Board {
 
     @Override
     public Key getKey(int i, int j) {
-        for (var key : this.board.entrySet()) {
+        for (var key : board.entrySet()) {
             if (key.getKey().getI() == i && key.getKey().getJ() == j) {
                 return key.getKey();
             }
@@ -56,14 +56,14 @@ public class SquareBoard extends Board {
 
     @Override
     public Integer getValue(Key key) {
-        return this.board.get(key);
+        return board.get(key);
     }
 
     @Override
     public List<Key> getColumn(int j) {
         List<Key> column = new ArrayList<>();
 
-        for (var entry : this.board.entrySet()) {
+        for (var entry : board.entrySet()) {
             if (entry.getKey().getJ() == j) {
                 column.add(entry.getKey());
             }
@@ -76,7 +76,7 @@ public class SquareBoard extends Board {
     public List<Key> getRow(int i) {
         List<Key> row = new ArrayList<>();
 
-        for (var entry : this.board.entrySet()) {
+        for (var entry : board.entrySet()) {
             if (entry.getKey().getI() == i) {
                 row.add(entry.getKey());
             }
@@ -87,17 +87,17 @@ public class SquareBoard extends Board {
 
     @Override
     public List<Integer> getColumnValues(int j) {
-        return this.getValues(this.getColumn(j));
+        return getValues(getColumn(j));
     }
 
     @Override
     public List<Integer> getRowValues(int i) {
-        return this.getValues(this.getRow(i));
+        return getValues(getRow(i));
     }
 
     @Override
     public boolean hasValue(Integer value) {
-        return this.board.containsValue(value);
+        return board.containsValue(value);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class SquareBoard extends Board {
         List<Integer> values = new ArrayList<>();
 
         for (var key : keys) {
-            values.add(this.board.get(key));
+            values.add(board.get(key));
         }
 
         return values;
@@ -115,12 +115,12 @@ public class SquareBoard extends Board {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < this.getWidth(); i++) {
-            for (int j = 0; j < this.getHeight(); j++) {
-                if (this.getValue(this.getKey(i, j)) == null) {
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if (getValue(getKey(i, j)) == null) {
                     sb.append("* ");
                 } else {
-                    sb.append(this.getValue(this.getKey(i, j)) + " ");
+                    sb.append(getValue(getKey(i, j)) + " ");
                 }
             }
 
