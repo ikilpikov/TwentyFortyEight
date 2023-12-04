@@ -3,7 +3,6 @@ package game;
 import board.Board;
 import direction.Direction;
 import key.Key;
-
 import java.util.*;
 
 import static java.util.Arrays.asList;
