@@ -5,10 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class Board {
+public abstract class Board<K, V>  {
     private final int width;
     private final int height;
-    protected Map<Key, Integer> board = new LinkedHashMap<>();
+    protected Map<K, V> board = new LinkedHashMap<>();
 
     public Board(int weigh, int height) {
         this.width = weigh;
@@ -23,26 +23,26 @@ public abstract class Board {
         return height;
     }
 
-    public abstract void fillBoard(List<Integer> list);
+    public abstract void fillBoard(List<V> list);
 
-    public abstract List<Key> availableSpace();
+    public abstract List<K> availableSpace();
 
-    public abstract void addItem(Key key, Integer value);
+    public abstract void addItem(K key, V value);
 
-    public abstract Key getKey(int i, int j);
+    public abstract K getKey(int i, int j);
 
-    public abstract Integer getValue(Key key);
+    public abstract V getValue(K key);
 
-    public abstract List<Key> getColumn(int j);
+    public abstract List<K> getColumn(int j);
 
-    public abstract List<Key> getRow(int i);
+    public abstract List<K> getRow(int i);
 
-    public abstract List<Integer> getColumnValues(int j);
+    public abstract List<V> getColumnValues(int j);
 
-    public abstract List<Integer> getRowValues(int i);
+    public abstract List<V> getRowValues(int i);
 
-    public abstract boolean hasValue(Integer value);
+    public abstract boolean hasValue(V value);
 
-    public abstract List<Integer> getValues(List<Key> keys);
+    public abstract List<V> getValues(List<K> keys);
 
 }

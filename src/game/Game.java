@@ -8,7 +8,7 @@ public interface Game {
 
     boolean canMove();
 
-    void move(Direction direction);
+    boolean move(Direction direction);
 
     void addItem();
 

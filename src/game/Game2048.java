@@ -1,6 +1,7 @@
 package game;
 
 import board.Board;
+import board.SquareBoard;
 import direction.Direction;
 import key.Key;
 
@@ -10,20 +11,27 @@ import static java.util.Arrays.asList;
 
 public class Game2048 implements Game {
     private GameHelper helper;
-    private Board board;
-    private Random random;
+    Random random;
+    public static final int GAME_SIZE = 4;
+    private Board<Key, Integer> board = new SquareBoard<>(GAME_SIZE);
 
-    public Game2048(Board board) {
+
+    public Game2048(Board<Key, Integer> board) {
         this.board = board;
+        helper = new GameHelper();
+        random = new Random();
+    }
+
+    public Game2048() {
         helper = new GameHelper();
         random = new Random();
     }
 
     @Override
     public void init() {
-        board.fillBoard(asList(2, null, 2,
-                2, null, null,
-                2, 4, 4));
+        for(var i = 0; i < board.getHeight() * board.getWidth(); i++){
+            addItem();
+        }
     }
 
     @Override
@@ -32,18 +40,24 @@ public class Game2048 implements Game {
     }
 
     @Override
-    public void move(Direction direction) {
+    public boolean move(Direction direction) {
+        if(!canMove()){
+            return false;
+        }
+
         switch (direction) {
             case LEFT -> moveLeft();
             case RIGHT -> moveRight();
             case UP -> moveUp();
             case DOWN -> moveDown();
         }
+
+        return true;
     }
 
     @Override
     public void addItem() {
-        List<Key> emptyFields = board.availableSpace();
+        var emptyFields = board.availableSpace();
         Key randomEmptyField = emptyFields
                 .get(random.nextInt(emptyFields.size() - 1));
 
@@ -61,9 +75,9 @@ public class Game2048 implements Game {
     }
 
     private void moveLeft() {
-        List<Integer> updatedBoardValues = new ArrayList<>();
+        var updatedBoardValues = new ArrayList<Integer>();
 
-        for (int i = 0; i < board.getHeight(); i++) {
+        for (var i = 0; i < board.getHeight(); i++) {
             List<Integer> mergedRows = helper
                     .moveAndMergeEqual(board.getRowValues(i));
             updatedBoardValues.addAll(mergedRows);
@@ -73,9 +87,9 @@ public class Game2048 implements Game {
     }
 
     private void moveRight() {
-        List<Integer> updatedBoardValues = new ArrayList<>();
+        var updatedBoardValues = new ArrayList<Integer>();
 
-        for (int i = 0; i < board.getHeight(); i++) {
+        for (var i = 0; i < board.getHeight(); i++) {
             List<Integer> mergedRows = helper
                     .moveAndMergeEqual(board.getRowValues(i));
             mergedRows = reverseNullsOnly(mergedRows);
@@ -87,9 +101,9 @@ public class Game2048 implements Game {
     }
 
     private void moveDown() {
-        List<Integer> updatedBoardValues = new ArrayList<>();
+       var updatedBoardValues = new ArrayList<Integer>();
 
-        for (int i = 0; i < board.getWidth(); i++) {
+        for (var i = 0; i < board.getWidth(); i++) {
             List<Integer> mergedColumns = helper
                     .moveAndMergeEqual(board.getColumnValues(i));
             mergedColumns = reverseNullsOnly(mergedColumns);
@@ -97,33 +111,33 @@ public class Game2048 implements Game {
             updatedBoardValues.addAll(mergedColumns);
         }
 
-        List<Integer> transposedUpdatedValues =
+        var transposedUpdatedValues =
                 transportBoardValues(updatedBoardValues);
 
         board.fillBoard(transposedUpdatedValues);
     }
 
     private void moveUp() {
-        List<Integer> updatedBoardValues = new ArrayList<>();
+        var updatedBoardValues = new ArrayList<Integer>();
 
-        for (int i = 0; i < board.getWidth(); i++) {
+        for (var i = 0; i < board.getWidth(); i++) {
             List<Integer> mergedColumns = helper
                     .moveAndMergeEqual(board.getColumnValues(i));
 
             updatedBoardValues.addAll(mergedColumns);
         }
 
-        List<Integer> transposedUpdatedValues =
+        var transposedUpdatedValues =
                 transportBoardValues(updatedBoardValues);
 
         board.fillBoard(transposedUpdatedValues);
     }
 
     private List<Integer> transportBoardValues(List<Integer> list) {
-        List<Integer> result = new ArrayList<>();
+        var result = new ArrayList<Integer>();
 
-        for (int i = 0; i < board.getHeight(); i++) {
-            for (int j = 0; j < board.getWidth(); j++) {
+        for (var i = 0; i < board.getHeight(); i++) {
+            for (var j = 0; j < board.getWidth(); j++) {
                 result.add(list
                         .get(j * board.getHeight() + i));
             }
@@ -133,7 +147,7 @@ public class Game2048 implements Game {
     }
 
     private List<Integer> reverseNullsOnly(List<Integer> list) {
-        List<Integer> reversedList = new ArrayList<>(list);
+        var reversedList = new ArrayList<Integer>(list);
 
         Collections.sort(reversedList, (x, y) -> {
             if (x == null && y != null) {

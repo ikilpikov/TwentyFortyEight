@@ -1,12 +1,14 @@
 package test;
 
 import board.*;
+import key.Key;
+
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
 public class BoardTest {
-    private final static Board board = new SquareBoard(2);
+    private final static Board<Key, Integer> board = new SquareBoard(2);
 
     public static void main(String[] args) {
         board.fillBoard(asList(1, 2, 3, null));
@@ -43,7 +45,10 @@ public class BoardTest {
     }
 
     public static void assertEquals(List<?> list1, List<?> list2) {
-        if (!list1.equals(list2))
-            throw new RuntimeException("List1: " + list1 + " not equals List2: " + list2);
+        if (!(list1.size() == list2.size()
+                && list1.containsAll(list2)
+                && list2.containsAll(list1)))
+                    throw new RuntimeException("List1: " + list1 + " not equals List2: " + list2);
     }
+
 }
