@@ -45,4 +45,6 @@ public abstract class Board<K, V>  {
 
     public abstract List<V> getValues(List<K> keys);
 
+    public abstract void clearBoard();
+
 }

@@ -101,6 +101,13 @@ public class SquareBoard<V> extends Board<Key, V> {
     }
 
     @Override
+    public void clearBoard() {
+        for(var i : board.entrySet()){
+            i.setValue(null);
+        }
+    }
+
+    @Override
     public List<V> getValues(List<Key> keys) {
         var values = new ArrayList<V>();
 

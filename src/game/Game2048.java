@@ -29,9 +29,9 @@ public class Game2048 implements Game {
 
     @Override
     public void init() {
-        for(var i = 0; i < board.getHeight() * board.getWidth(); i++){
-            addItem();
-        }
+        board.clearBoard();
+        addItem();
+        addItem();
     }
 
     @Override
@@ -50,18 +50,33 @@ public class Game2048 implements Game {
             case RIGHT -> moveRight();
             case UP -> moveUp();
             case DOWN -> moveDown();
+            default -> { return false;}
         }
+        addItem();
 
         return true;
     }
 
+    /**
+     * В случайное свободное место на доске добавляется плитка
+     * со значением 4 (с вероятностью 10%) или
+     * соначением 3 (с вероятностью 90%).
+     */
     @Override
     public void addItem() {
         var emptyFields = board.availableSpace();
-        Key randomEmptyField = emptyFields
+        var randomEmptyField = emptyFields
                 .get(random.nextInt(emptyFields.size() - 1));
 
-        board.addItem(randomEmptyField, 2);
+        var randomTile = random.nextInt(10) + 1;
+
+        if (randomTile <= 9) {
+            board.addItem(randomEmptyField, 2);
+        } else {
+            board.addItem(randomEmptyField, 2);
+        }
+
+
     }
 
     @Override
