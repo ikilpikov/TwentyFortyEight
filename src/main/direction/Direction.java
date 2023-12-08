@@ -1,4 +1,4 @@
-package direction;
+package main.direction;
 
 public enum Direction {
     LEFT,

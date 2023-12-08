@@ -1,4 +1,4 @@
-package key;
+package main.key;
 
 import java.util.Objects;
 

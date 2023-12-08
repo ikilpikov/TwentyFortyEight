@@ -1,7 +1,7 @@
-package game;
+package main.game;
 
-import board.Board;
-import direction.Direction;
+import main.board.Board;
+import main.direction.Direction;
 
 public interface Game {
     void init();

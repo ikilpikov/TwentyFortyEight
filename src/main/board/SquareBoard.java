@@ -1,9 +1,8 @@
-package board;
+package main.board;
 
-import key.Key;
+import main.key.Key;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class SquareBoard<V> extends Board<Key, V> {
     public SquareBoard (int size) {

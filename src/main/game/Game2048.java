@@ -1,13 +1,11 @@
-package game;
+package main.game;
 
-import board.Board;
-import board.SquareBoard;
-import direction.Direction;
-import key.Key;
+import main.board.Board;
+import main.board.SquareBoard;
+import main.direction.Direction;
+import main.key.Key;
 
 import java.util.*;
-
-import static java.util.Arrays.asList;
 
 public class Game2048 implements Game {
     private GameHelper helper;
@@ -36,12 +34,16 @@ public class Game2048 implements Game {
 
     @Override
     public boolean canMove() {
-        return !board.availableSpace().isEmpty();
+        if (board.availableSpace().isEmpty()) {
+            return false;
+        }
+
+        return haveEqualNeighbours();
     }
 
     @Override
     public boolean move(Direction direction) {
-        if(!canMove()){
+        if (!canMove()) {
             return false;
         }
 
@@ -50,7 +52,9 @@ public class Game2048 implements Game {
             case RIGHT -> moveRight();
             case UP -> moveUp();
             case DOWN -> moveDown();
-            default -> { return false;}
+            default -> {
+                return false;
+            }
         }
         addItem();
 
@@ -116,7 +120,7 @@ public class Game2048 implements Game {
     }
 
     private void moveDown() {
-       var updatedBoardValues = new ArrayList<Integer>();
+        var updatedBoardValues = new ArrayList<Integer>();
 
         for (var i = 0; i < board.getWidth(); i++) {
             List<Integer> mergedColumns = helper
@@ -175,6 +179,19 @@ public class Game2048 implements Game {
         });
 
         return reversedList;
+    }
+
+    private boolean haveEqualNeighbours() {
+        for (var i = 1; i < board.getHeight(); i++) {
+            for (var j = 1; j < board.getWidth(); j++) {
+                if (board.getValue(new Key(i, j)) == board.getValue(new Key(i, j - 1)) ||
+                        board.getValue(new Key(i, j)) == board.getValue(new Key(i - 1, j))) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
 }
